@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MarqueeView">
+        <attr name="marqueeview_text_distance" format="float|reference"/><!--每个item之间的距离-->
+        <attr name="marqueeview_iscontinue" format="enum">
+
+            <enum name="oncetime" value="0"/><!-- 播放一次 -->
+            <enum name="repetition_interval" value="1"/>  <!--连续播放 循环结束再继续下次循环-->
+            <enum name="repetition_continuous" value="2"/>  <!--连续播放 到末尾直接继续下次循环-->
+
+        </attr><!--循环模式-->
+        <attr name="marqueeview_isclickalbe_stop" format="boolean"/><!--是否点击暂停 有java 方法-->
+        <attr name="marqueeview_title" format="string|reference"/><!-- 标题 放在滚动弹幕最前面-->
+
+
+        <attr name="marqueeview_text_speed" format="float"/><!--播放速度 也就是文字滚动速度-->
+        <attr name="marqueeview_text_color" format="color|reference"/><!-- 文字颜色 -->
+        <attr name="marqueeview_text_size" format="float|reference"/><!-- 文字大小 -->
+
+        
+    </declare-styleable>
+
+
+</resources>
