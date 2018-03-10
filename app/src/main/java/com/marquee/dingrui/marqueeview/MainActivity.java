@@ -52,7 +52,7 @@ private List<String> list1=new ArrayList<String>() {
         bt_control00.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mV3.setTextDistance(1000);//设置3的间距
+                mV3.setTextDistance(50);//设置3的间距
 
             }
         });

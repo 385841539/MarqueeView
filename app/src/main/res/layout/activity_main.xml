@@ -28,6 +28,32 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bt_control4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2颜色" />
+        '
+
+        <Button
+            android:id="@+id/bt_control24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2大小" />
+
+        <Button
+            android:id="@+id/bt_control23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2速度" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
             android:id="@+id/bt_control"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,32 +71,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3间距变大" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bt_control4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2文字颜色" />
-        '
-
-        <Button
-            android:id="@+id/bt_control24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2文字大小" />
-
-        <Button
-            android:id="@+id/bt_control23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2文字速度" />
-
     </LinearLayout>
 
 
