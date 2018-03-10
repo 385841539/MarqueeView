@@ -20,7 +20,7 @@
         <attr name="marqueeview_text_distance" format="integer"/><!--每个item之间的距离-->
         <attr name="marqueeview_text_startlocationdistance" format="float"/><!--开始的起始位置 按距离控件左边的百分比 0~1之间 -->
 
-        
+
     </declare-styleable>
 
 

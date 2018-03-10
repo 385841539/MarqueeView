@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.TintTypedArray;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -69,6 +70,23 @@ public class MarqueeView extends View implements Runnable {
 
         initattrs(attrs);
         initpaint();
+        initClick();
+    }
+
+    private void initClick() {
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isClickStop){
+                    if (isRoll){
+                        stopRoll();
+                    }else {
+                        continueRoll();
+                    }
+                }
+            }
+        });
     }
 
     @SuppressLint("RestrictedApi")
