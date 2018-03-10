@@ -8,91 +8,104 @@
     tools:context="com.marquee.dingrui.marqueeview.MainActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/bt_control0"
-            android:text="跑马灯内容添加"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/bt_control00"
-            android:text="改变跑马灯1的内容String"
+            android:id="@+id/bt_control0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="内容添加" />
+
+
     </LinearLayout>
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/bt_control"
-            android:text="控制跑马灯3继续"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="3继续" />
         '
 
         <Button
             android:id="@+id/bt_control2"
-            android:text="控制跑马灯3停止"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="3停止" />
+
+        <Button
+            android:id="@+id/bt_control00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3间距变大" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/bt_control4"
-            android:text="改变跑马灯2文字颜色"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="2文字颜色" />
         '
 
         <Button
             android:id="@+id/bt_control24"
-            android:text="控制跑马灯2文字大小"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="2文字大小" />
+
+        <Button
+            android:id="@+id/bt_control23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2文字速度" />
+
     </LinearLayout>
 
 
     <com.marquee.dingrui.marqueeviewlib.MarqueeView
         android:id="@+id/mv_main1"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
         android:layout_marginTop="40dp"
         android:background="@color/colorAccent"
-        app:marqueeview_text_speed="1"
-        app:marqueeview_repet_type="repet_oncetime"
-        app:marqueeview_text_size="10"
-        android:layout_width="match_parent"
         app:marqueeview_is_resetLocation="false"
-        android:layout_height="25dp" />
+        app:marqueeview_repet_type="repet_oncetime"
+        app:marqueeview_text_distance="30"
+        app:marqueeview_text_size="10"
+        app:marqueeview_text_speed="3" />
 
     <com.marquee.dingrui.marqueeviewlib.MarqueeView
         android:id="@+id/mv_main2"
-        android:layout_marginTop="30dp"
-        app:marqueeview_repet_type="repet_interval"
-        app:marqueeview_text_startlocationdistance="0.5"
-        app:marqueeview_isclickalbe_stop="true"
-
-        app:marqueeview_text_speed="2"
-        app:marqueeview_is_resetLocation="false"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
-        android:layout_height="50dp" />
+
+        app:marqueeview_is_resetLocation="false"
+        app:marqueeview_isclickalbe_stop="true"
+        app:marqueeview_repet_type="repet_interval"
+        app:marqueeview_text_speed="2"
+        app:marqueeview_text_startlocationdistance="0.5" />
 
     <com.marquee.dingrui.marqueeviewlib.MarqueeView
         android:id="@+id/mv_main3"
-        android:layout_marginTop="30dp"
-        app:marqueeview_text_speed="3"
-        app:marqueeview_text_size="15"
-        app:marqueeview_repet_type="repet_continuous"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        app:marqueeview_repet_type="repet_continuous"
+        app:marqueeview_text_size="15"
+        app:marqueeview_text_speed="2" />
 
 </LinearLayout>

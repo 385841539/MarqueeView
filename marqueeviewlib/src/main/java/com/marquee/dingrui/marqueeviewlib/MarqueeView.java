@@ -23,16 +23,12 @@ import java.util.Random;
 
 public class MarqueeView extends View implements Runnable {
     private static final String TAG = "MarqueeView";
-    Random random = new Random();//随机数,用于取得x,y坐标,颜色值，以及移动速度
     private TextPaint paint;//画笔
-    private int width;
-    private Context context;
     private String string;
     private float speed = 1;
     private int textColor = Color.BLACK;//文字颜色,默认黑色
     private float textSize = 12;//文字颜色,默认黑色
-    private int textdistance = 50;//文字间距，dp单位
-    //    private boolean isResversable;
+    private int textdistance ;
     private int repetType = REPET_INTERVAL;
     private boolean isClickStop = false;
     private boolean isResetLocation = true;//默认为true
@@ -54,6 +50,7 @@ public class MarqueeView extends View implements Runnable {
     private int contentWidth;
     private float oneBlack_width;//空格的宽度
     private float textHeight;
+    private int textDistance1= 10;//文字间距，dp单位
 
 
     public MarqueeView(Context context) {
@@ -66,8 +63,6 @@ public class MarqueeView extends View implements Runnable {
 
     public MarqueeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
-
         initattrs(attrs);
         initpaint();
         initClick();
@@ -78,10 +73,10 @@ public class MarqueeView extends View implements Runnable {
             @Override
             public void onClick(View v) {
 
-                if (isClickStop){
-                    if (isRoll){
+                if (isClickStop) {
+                    if (isRoll) {
                         stopRoll();
-                    }else {
+                    } else {
                         continueRoll();
                     }
                 }
@@ -99,7 +94,7 @@ public class MarqueeView extends View implements Runnable {
         isResetLocation = tta.getBoolean(R.styleable.MarqueeView_marqueeview_is_resetLocation, isResetLocation);
         speed = tta.getFloat(R.styleable.MarqueeView_marqueeview_text_speed, speed);
         textSize = tta.getFloat(R.styleable.MarqueeView_marqueeview_text_size, textSize);
-        textdistance = tta.getInteger(R.styleable.MarqueeView_marqueeview_text_distance, textdistance);
+        textDistance1 = tta.getInteger(R.styleable.MarqueeView_marqueeview_text_distance, textDistance1);
         startLocationDistance = tta.getFloat(R.styleable.MarqueeView_marqueeview_text_startlocationdistance, startLocationDistance);
         repetType = tta.getInt(R.styleable.MarqueeView_marqueeview_repet_type, repetType);
         tta.recycle();
@@ -128,7 +123,7 @@ public class MarqueeView extends View implements Runnable {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (resetInit) {
-            setTextDistance(textdistance);
+            setTextDistance(textDistance1);
 
             if (startLocationDistance < 0) {
                 startLocationDistance = 0;
@@ -281,7 +276,7 @@ public class MarqueeView extends View implements Runnable {
      *
      * @param textdistance2
      */
-    private void setTextDistance(int textdistance2) {
+    public void setTextDistance(int textdistance2) {
 
 
         //设置之后就需要初始化了
@@ -300,6 +295,7 @@ public class MarqueeView extends View implements Runnable {
         for (int i = 0; i <= count; i++) {
             black_count = black_count + black;//间隔字符串
         }
+        setContent(content);//设置间距以后要重新刷新内容距离，不过如果内容是List形式的，该方法不适用
     }
 
     private float getBlacktWidth() {
@@ -341,10 +337,10 @@ public class MarqueeView extends View implements Runnable {
      *
      * @param textColor
      */
-    private void setTextColor(int textColor) {
+    public void setTextColor(int textColor) {
         if (textColor != 0) {
             this.textColor = textColor;
-            paint.setColor(textColor);//文字颜色值,可以不设定
+            paint.setColor(getResources().getColor(textColor));//文字颜色值,可以不设定
         }
     }
 
@@ -353,10 +349,13 @@ public class MarqueeView extends View implements Runnable {
      *
      * @param textSize
      */
-    private void setTextSize(float textSize) {
+    public void setTextSize(float textSize) {
         if (textSize > 0) {
             this.textSize = textSize;
-            paint.setColor(dp2px(textSize));//文字颜色值,可以不设定
+            paint.setTextSize(dp2px(textSize));//文字颜色值,可以不设定
+            contentWidth = (int) (getContentWidth(content) + textdistance);//大小改变，需要重新计算宽高
+
+
         }
     }
 
@@ -365,10 +364,8 @@ public class MarqueeView extends View implements Runnable {
      *
      * @param speed
      */
-    private void setTextSpeed(float speed) {
-
+    public void setTextSpeed(float speed) {
         this.speed = speed;
-
     }
 
 
@@ -378,14 +375,14 @@ public class MarqueeView extends View implements Runnable {
      * @param strings
      */
     public void setContent(List<String> strings) {
-        setTextDistance(textdistance);
+        setTextDistance(textDistance1);
         String temString = "";
 
         if (strings != null && strings.size() != 0) {
 
-            for (int i = 0; i < strings.size(); i++) {
+            for (int i = 0; i <strings.size(); i++) {
 
-                temString = strings.get(i) + black_count;
+                temString = temString+strings.get(i) + black_count;
             }
 
         }
@@ -396,9 +393,12 @@ public class MarqueeView extends View implements Runnable {
     /**
      * 设置滚动的条目内容  字符串形式的
      *
-     * @param
+     * @parambt_control00
      */
     public void setContent(String content2) {
+        if (TextUtils.isEmpty(content2)){
+            return;
+        }
         if (isResetLocation) {
             xLocation = getWidth() * startLocationDistance;
         }
@@ -416,7 +416,7 @@ public class MarqueeView extends View implements Runnable {
 
             contentWidth = (int) (getContentWidth(content) + textdistance);//以空格结尾的，空格是不计算进去的
             //从0 开始计算了，否则会重新 ， 否则到最后 会跨不过这个坎
-            repetCount=0;
+            repetCount = 0;
             int contentCount = (getWidth() / contentWidth) + 2;
 //            if (contentWidth > getWidth()) {//比屏幕宽，则需要两个；
 //                contentCount=2;
@@ -431,9 +431,9 @@ public class MarqueeView extends View implements Runnable {
             }
 
         } else {
-            if (xLocation<0&&repetType==REPET_ONCETIME){
-                if (-xLocation>contentWidth){
-                    xLocation=getWidth()*startLocationDistance;
+            if (xLocation < 0 && repetType == REPET_ONCETIME) {
+                if (-xLocation > contentWidth) {
+                    xLocation = getWidth() * startLocationDistance;
                 }
             }
             contentWidth = (int) getContentWidth(content);
@@ -450,10 +450,11 @@ public class MarqueeView extends View implements Runnable {
 
     /**
      * 从新添加内容的时候，是否初始化位置
+     *
      * @param isReset
      */
     private void setResetLocation(boolean isReset) {
-        isResetLocation=isReset;
+        isResetLocation = isReset;
     }
 
     public void appendContent(String appendContent) {
