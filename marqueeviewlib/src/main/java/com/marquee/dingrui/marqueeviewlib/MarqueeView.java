@@ -23,34 +23,36 @@ import java.util.Random;
 
 public class MarqueeView extends View implements Runnable {
     private static final String TAG = "MarqueeView";
-    private TextPaint paint;//画笔
-    private String string;
-    private float speed = 1;
+    private String string;//最终绘制的文本
+    private float speed = 1;//移动速度
     private int textColor = Color.BLACK;//文字颜色,默认黑色
     private float textSize = 12;//文字颜色,默认黑色
-    private int textdistance ;
-    private int repetType = REPET_INTERVAL;
-    private boolean isClickStop = false;
-    private boolean isResetLocation = true;//默认为true
-    private float xLocation = 0;
-    private String black_count = "";//间距转化成空格
+    private int textdistance ;//
+    private int textDistance1= 10;//item间距，dp单位
+    private String black_count = "";//间距转化成空格距离
 
+    private int repetType = REPET_INTERVAL;//滚动模式
     public static final int REPET_ONCETIME = 0;//一次结束
     public static final int REPET_INTERVAL = 1;//一次结束以后，再继续第二次
     public static final int REPET_CONTINUOUS = 2;//紧接着 滚动第二次
+
+    private float startLocationDistance = 1.0f;//开始的位置选取，百分比来的，距离左边，0~1，0代表不间距，1的话代表，从右面，1/2代表中间。
+
+    private boolean isClickStop = false;//点击是否暂停
+    private boolean isResetLocation = true;//默认为true
+    private float xLocation = 0;//文本的x坐标
+    private int contentWidth;//内容的宽度
+    private TextPaint paint;//画笔
     private Rect rect;
 
-    private int repetCount = 0;
-
+    private int repetCount = 0;//
     private boolean resetInit = true;
-    private float startLocationDistance = 1.0f;//开始的位置选取，百分比来的，距离左边，0~1，0代表不间距，1的话代表，从右面，1/2代表中间。
     private boolean isRoll = false;
     private Thread thread;
     private String content = "";
-    private int contentWidth;
+
     private float oneBlack_width;//空格的宽度
     private float textHeight;
-    private int textDistance1= 10;//文字间距，dp单位
 
 
     public MarqueeView(Context context) {
@@ -203,7 +205,7 @@ public class MarqueeView extends View implements Runnable {
             try {
                 Thread.sleep(10);
                 xLocation = xLocation - speed;
-                postInvalidate();//每隔500毫秒重绘视图
+                postInvalidate();//每隔10毫秒重绘视图
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -315,6 +317,7 @@ public class MarqueeView extends View implements Runnable {
         }
         paint.getTextBounds(black, 0, black.length(), rect);
         textHeight = getContentHeight();
+
         return rect.width();
     }
 
@@ -329,7 +332,6 @@ public class MarqueeView extends View implements Runnable {
 
         Paint.FontMetrics fontMetrics = paint.getFontMetrics();
         return Math.abs((fontMetrics.bottom - fontMetrics.top)) / 2;
-
     }
 
     /**
