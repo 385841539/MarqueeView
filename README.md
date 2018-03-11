@@ -33,20 +33,34 @@
 
 | 属性           	 		|    参数类型           	| 说明  					|
 | ------------------------- |------------------ | --------------------- |
-| iciv_bigimage				| reference 			|大图片|
-| iciv_smallimage		| reference       	    | 小图片(标识)|
-| iciv_angle				| float      	| 标识的角度，默认为45度|
-| iciv_radiusscale			| float  |大小图片比例,默认为0.2|
-| iciv_isprogress|boolean flag | 是否有进度条,默认为false,如果要用，必须设置为true|
-|iciv_progress_collor|Color Or reference|  进度条颜色|
-|  iciv_border_color  |Color Or reference|  边框颜色  |
-|  iciv_border_width  |integer | 边框和进度条宽度  |
-|iciv_hint_smallimageview | boolean|  是否隐藏小图片|
-
+| marqueeview_repet_type				| enum 			|循环模式|
+| marqueeview_text_distance		| integer       	    | 每个item之间的距离|
+| marqueeview_text_startlocationdistance				| float      	| 开始的起始位置 按距离控件左边的百分比 0~1之间|
+| marqueeview_text_speed			| float  |播放速度 也就是文字滚动速度|
+| marqueeview_text_color| color|reference | 文字颜色|
+|marqueeview_text_size|float|  文字大小|
+|  marqueeview_isclickalbe_stop  |boolean|  是否点击暂停  |
+|  marqueeview_is_resetLocation  |boolean | 重新改变内容的时候 ， 是否初始化 位置，默认为true，改变  |
 
 ### 4:添加 滚动文本：
-
+```
 mV3.setContent(content3);
+
+```
+### 5:java动态 设置属性值：
+
+```
+                mV3.setTextDistance(50);//设置间距
+                mV3.setTextSpeed(5);//设置速度   
+                mV3.setTextColor(R.color.colorAccent);//设置颜色
+                mV3.setTextSize(17);//设置文字大小
+                mV3.stopRoll();//停止滚动
+                mV3.continueRoll();//继续滚动
+ 
+           
+ 
+```
+
 
 ## Tips:
  原理很简单，献丑了，方便大家调用，为了节省大家时间。
