@@ -42,16 +42,19 @@ public class MarqueeView extends View implements Runnable {
     private boolean isResetLocation = true;//默认为true
     private float xLocation = 0;//文本的x坐标
     private int contentWidth;//内容的宽度
+
+    private boolean isRoll = false;//是否继续滚动
+    private float oneBlack_width;//空格的宽度
+
     private TextPaint paint;//画笔
     private Rect rect;
 
     private int repetCount = 0;//
     private boolean resetInit = true;
-    private boolean isRoll = false;
+
     private Thread thread;
     private String content = "";
 
-    private float oneBlack_width;//空格的宽度
     private float textHeight;
 
 
@@ -157,6 +160,7 @@ public class MarqueeView extends View implements Runnable {
 
             case REPET_CONTINUOUS:
 
+
                 if (xLocation < 0) {
                     int beAppend = (int) ((-xLocation) / contentWidth);
 
@@ -186,7 +190,6 @@ public class MarqueeView extends View implements Runnable {
         //把文字画出来
         if (string != null) {
             canvas.drawText(string, xLocation, getHeight() / 2 + textHeight / 2, paint);
-
 
         }
 
@@ -274,8 +277,7 @@ public class MarqueeView extends View implements Runnable {
 
 
     /**
-     * 设置文字间距 避免代码过多，该方法必须要在 设置文本之前设置，否则不成功
-     *
+     * 设置文字间距  不过如果内容是List形式的，该方法不适用 ,list的数据源，必须在设置setContent之前调用此方法。
      * @param textdistance2
      */
     public void setTextDistance(int textdistance2) {
@@ -300,6 +302,10 @@ public class MarqueeView extends View implements Runnable {
         setContent(content);//设置间距以后要重新刷新内容距离，不过如果内容是List形式的，该方法不适用
     }
 
+    /**
+     * 计算出一个空格的宽度
+     * @return
+     */
     private float getBlacktWidth() {
         String text1 = "en en";
         String text2 = "enen";
@@ -356,8 +362,6 @@ public class MarqueeView extends View implements Runnable {
             this.textSize = textSize;
             paint.setTextSize(dp2px(textSize));//文字颜色值,可以不设定
             contentWidth = (int) (getContentWidth(content) + textdistance);//大小改变，需要重新计算宽高
-
-
         }
     }
 
@@ -401,35 +405,26 @@ public class MarqueeView extends View implements Runnable {
         if (TextUtils.isEmpty(content2)){
             return;
         }
-        if (isResetLocation) {
+        if (isResetLocation) {//控制重新设置文本内容的时候，是否初始化xLocation。
             xLocation = getWidth() * startLocationDistance;
         }
 
-        if (TextUtils.isEmpty(content2)) {
-            return;
-        }
         if (!content2.endsWith(black_count)) {
             content2 = content2 + black_count;//避免没有后缀
         }
         this.content = content2;
+
         //这里需要计算宽度啦，当然要根据模式来搞
         if (repetType == REPET_CONTINUOUS) {
 //如果说是循环的话，则需要计算 文本的宽度 ，然后再根据屏幕宽度 ， 看能一个屏幕能盛得下几个文本
 
-            contentWidth = (int) (getContentWidth(content) + textdistance);//以空格结尾的，空格是不计算进去的
-            //从0 开始计算了，否则会重新 ， 否则到最后 会跨不过这个坎
+            contentWidth = (int) (getContentWidth(content) + textdistance);//可以理解为一个单元内容的长度
+            //从0 开始计算重复次数了， 否则到最后 会跨不过这个坎而消失。
             repetCount = 0;
             int contentCount = (getWidth() / contentWidth) + 2;
-//            if (contentWidth > getWidth()) {//比屏幕宽，则需要两个；
-//                contentCount=2;
-//            }else {
-//                contentCount +1
-//
-//            }
-
             this.string = "";
             for (int i = 0; i <= contentCount; i++) {
-                this.string = this.string + this.content;
+                this.string = this.string + this.content;//根据重复次数去叠加。
             }
 
         } else {
@@ -443,7 +438,7 @@ public class MarqueeView extends View implements Runnable {
             this.string = content2;
         }
 
-        if (!isRoll) {
+        if (!isRoll) {//如果没有在滚动的话，重新开启线程滚动
             continueRoll();
         }
 
