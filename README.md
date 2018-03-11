@@ -9,10 +9,29 @@
  ![Image text]( https://github.com/385841539/MarqueeView/blob/master/%E8%B7%91%E9%A9%AC%E7%81%AF.gif)</br>
  
  ## HowTo Use?/如何使用?-
+### 1: Download
+ 直接把MarqueeView这个类放到项目里面
+ #### OR 
+>> 1.先在 build.gradle(Project:XXXX) 的 repositories 添加:</br>
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
 
-
-### 1:直接把BarrageView这个类放到项目里面
-
+>> 2.然后在 build.gradle(Module:app) 的 dependencies 添加:</br>
+ 
+ ```
+ dependencies {
+	        
+	
+		 compile 'com.github.385841539:MarqueeView:1.0.0'
+   
+	}
+```
 
 ### 2:布局文件
 
