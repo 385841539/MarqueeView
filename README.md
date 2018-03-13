@@ -7,6 +7,7 @@
  效果图  ：
  
  ![Image text]( https://github.com/385841539/MarqueeView/blob/master/%E8%B7%91%E9%A9%AC%E7%81%AF.gif)</br>
+  gif录制出来有点怪，可以安装看看实际效果
  
  ## HowTo Use?/如何使用?-
 ### 1: Download
