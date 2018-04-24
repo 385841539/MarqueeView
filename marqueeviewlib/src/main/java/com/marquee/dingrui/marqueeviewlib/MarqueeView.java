@@ -136,7 +136,7 @@ public class MarqueeView extends View implements Runnable {
                 startLocationDistance = 1;
             }
             xLocation = getWidth() * startLocationDistance;
-            Log.e(TAG, "onMeasure: --- " + xLocation);
+//            Log.e(TAG, "onMeasure: --- " + xLocation);
             resetInit = false;
         }
 
